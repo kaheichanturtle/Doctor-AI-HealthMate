@@ -1,4 +1,4 @@
-# HealthMate: AI-Powered Healthcare Access
+# HealthMate
 
 **Australia's First² AI Medical Advisor⁴ | Bridging Healthcare Gaps Globally**
 
