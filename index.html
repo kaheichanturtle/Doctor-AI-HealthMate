@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Healthmate - AI-Powered Doctor</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+        body {
+            background-color: #f8f9fa;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        .home-section {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        .logo {
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #1a1a1a;
+            text-decoration: none;
+        }
+
+        .twitter-link {
+            background-color: white;
+            color: #536471;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.875rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .main-content {
+            text-align: center;
+            max-width: 600px;
+            padding: 0 2rem;
+        }
+        h1 {
+            font-size: 3rem;
+            color: #1a1a1a;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+        .line-break {
+            display: block;
+        }
+        p {
+            color: #4a4a4a;
+            font-size: 1.25rem;
+            margin-bottom: 2rem;
+        }
+        .buttons {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+        }
+        .button-primary {
+            background-color: #4169e1;
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            min-width: 200px;
+            text-align: center;
+            transition: background-color 0.2s;
+        }
+        .button-primary:hover {
+            background-color: #3154b3;
+        }
+        .button-secondary {
+            background-color: #e5e7eb;
+            color: #1a1a1a;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            min-width: 200px;
+            text-align: center;
+            transition: background-color 0.2s;
+        }
+        .button-secondary:hover {
+            background-color: #d1d5db;
+        }
+        .scroll-arrow {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            cursor: pointer;
+            animation: bounce 2s infinite;
+            background: none;
+            border: none;
+            padding: 1rem;
+        }
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateX(-50%) translateY(0);
+            }
+            40% {
+                transform: translateX(-50%) translateY(-10px);
+            }
+            60% {
+                transform: translateX(-50%) translateY(-5px);
+            }
+        }
+        .sponsors-section {
+            min-height: 100vh;
+            padding: 4rem 0;
+            background-color: white;
+            box-shadow: 0 -1px 3px rgba(0,0,0,0.1);
+        }
+        .sponsors-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        .sponsors-title {
+            text-align: center;
+            font-size: 2rem;
+            color: #1a1a1a;
+            margin-bottom: 2rem;
+        }
+        .sponsors-scroll {
+            display: flex;
+            gap: 2rem;
+            overflow-x: auto;
+            padding: 1rem 0;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+        }
+        .sponsors-scroll::-webkit-scrollbar {
+            display: none;
+        }
+        .sponsor-card {
+            flex: 0 0 auto;
+            width: 250px;
+            background-color: #f8f9fa;
+            border-radius: 12px;
+            padding: 1rem;
+            text-align: center;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .sponsor-image {
+            width: 200px;
+            height: 150px;
+            margin: 0 auto 1rem;
+            background-color: #e5e7eb;
+            overflow: hidden;
+            border-radius: 8px;
+        }
+        .sponsor-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .sponsor-name {
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 0.5rem;
+        }
+        .sponsor-role {
+            font-size: 0.875rem;
+            color: #4a4a4a;
+        }
+        .about-section {
+            padding: 6rem 0;
+            background-color: #f8f9fa;
+        }
+        .about-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+        .about-content {
+            max-width: 500px;
+        }
+        .about-title {
+            font-size: 2.5rem;
+            color: #1a1a1a;
+            margin-bottom: 1.5rem;
+        }
+        .about-text {
+            color: #4a4a4a;
+            font-size: 1.125rem;
+            line-height: 1.7;
+            margin-bottom: 2rem;
+        }
+        .about-features {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+        .feature-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+        .feature-icon {
+            background-color: #e5e7eb;
+            padding: 0.75rem;
+            border-radius: 8px;
+        }
+        .feature-text {
+            font-weight: 500;
+            color: #1a1a1a;
+        }
+        .about-image {
+            width: 100%;
+            height: 400px;
+            background-color: #e5e7eb;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        .about-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        footer {
+            background-color: #1a1a1a;
+            color: white;
+            padding: 4rem 0 2rem;
+        }
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        .footer-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 4rem;
+            margin-bottom: 3rem;
+        }
+        .footer-section h4 {
+            font-size: 1.125rem;
+            margin-bottom: 1.5rem;
+            color: #ffffff;
+        }
+        .footer-section p {
+            color: #9ca3af;
+            font-size: 0.875rem;
+            margin-bottom: 1rem;
+        }
+        .footer-links {
+            list-style: none;
+        }
+        .footer-links li {
+            margin-bottom: 0.75rem;
+        }
+        .footer-links a {
+            color: #9ca3af;
+            text-decoration: none;
+            font-size: 0.875rem;
+            transition: color 0.2s;
+        }
+        .footer-links a:hover {
+            color: white;
+        }
+        .footer-bottom {
+            border-top: 1px solid #374151;
+            padding-top: 2rem;
+            text-align: center;
+            color: #9ca3af;
+            font-size: 0.875rem;
+        }
+        .footer-bottom a {
+            color: #ffffff;
+            text-decoration: none;
+        }
+        .sponsors-container {
+    position: relative;
+    padding: 0 3rem;
+}
+
+.scroll-arrow-sponsors {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    z-index: 10;
+    transition: all 0.2s;
+}
+
+.scroll-arrow-sponsors:hover {
+    background: #f8f9fa;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.scroll-arrow-sponsors.left {
+    left: 0.5rem;
+}
+
+.scroll-arrow-sponsors.right {
+    right: 0.5rem;
+}
+
+.scroll-arrow-sponsors svg {
+    width: 20px;
+    height: 20px;
+    stroke: #4a4a4a;
+}
+        
+    </style>
+</head>
+<body>
+    <section class="home-section">
+        <a href="https://docs.google.com/document/d/1UxOPQZMk8ec-kPrXL-FQhbye6A9S6hUTUkjxq5Ge3jc/edit?usp=sharing" class="logo">
+            <img class="logo-icon" src="https://cdn.glitch.global/907ca3da-8419-4467-9fed-b094fae7c503/healthmate%2024*24.png?v=1731656038845" alt="Healthmate Logo">
+             Healthmate™
+        </a>
+        <a href="https://shorturl.at/v8TYg" class="twitter-link">
+            Project by Shellcraft™ Studios
+        </a>
+        <div class="main-content">
+            <h1>Privacy Focused<br class="line-break">AI-Powered Doctor</h1>
+            <p>Meet Healthmate, Australia's First AI General Practitioner.</p>
+            
+            <div class="buttons">
+                <a href="https://healthmate.glitch.me/ai.html" class="button-primary">Get Started</a>
+                <a href="https://shorturl.at/v8TYg" class="button-secondary">About Us</a>
+            </div>
+        </div>
+        <button class="scroll-arrow" onclick="document.querySelector('.about-section').scrollIntoView({behavior: 'smooth'})">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 5v14M5 12l7 7 7-7"/>
+            </svg>
+        </button>
+    </section>
+
+    
+
+
+    <section class="about-section">
+        <div class="about-container">
+            <div class="about-content">
+                <h2 class="about-title">About HealthMate</h2>
+                <p class="about-text">
+                    HealthMate is Australia’s first² AI medical doctor⁴, designed to bring quick, efficient, and cost-effective healthcare access to developing countries. By leveraging advanced technology, HealthMate aims to bridge healthcare gaps and make reliable medical advice available to those who need it most.                </p>
+                <div class="about-features">
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                <polyline points="22 4 12 14.01 9 11.01"/>
+                            </svg>
+                        </div>
+                        <span class="feature-text">Privacy Focused¹</span>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                            </svg>
+                        </div>
+                        <span class="feature-text">Secure Platform¹</span>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <path d="M12 6v6l4 2"/>
+                            </svg>
+                        </div>
+                        <span class="feature-text">24/7 Available</span>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+                                <circle cx="9" cy="7" r="4"/>
+                                <path d="M22 21v-2a4 4 0 0 0-3-3.87"/>
+                                <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                            </svg>
+                        </div>
+                        <span class="feature-text">Ethical Care Standards</span>
+                    </div>
+                </div>
+            </div>
+            <div class="about-image">
+                <iframe src="https://drive.google.com/file/d/1qnrMAbKy_h4WIUu4ybx9tkNHmhGRvJte/preview" width="550" height="400" allow="autoplay"></iframe>
+            </div>
+        </div>
+    </section>
+    <section class="how-it-works-section" style="padding: 6rem 0; background-color: white;">
+        <div style="max-width: 1200px; margin: 0 auto; padding: 0 2rem;">
+            <h2 style="font-size: 2.5rem; color: #1a1a1a; margin-bottom: 3rem; text-align: center;">How Healthmate Operates</h2>
+            
+            <!-- Medical Safety Section -->
+            <div class="info-section" style="background: #f8f9fa; border-radius: 12px; padding: 2rem; margin-bottom: 2rem;">
+                <h3 style="font-size: 1.5rem; color: #1a1a1a; margin-bottom: 1rem;">
+                    🔍 Ensuring Medical Accuracy
+                </h3>
+                <p style="color: #4a4a4a; font-size: 1.125rem; line-height: 1.7;">
+                    At Healthmate, we recognize the significance of accurate medical advice and its implications on well-being. Our system is powered by Med-Gemini³, an advanced medical AI with a verified accuracy rate of 91.1% on MedQA, as confirmed by Google Research.
+                    <br><br>
+                    <a href="https://research.google/blog/advancing-medical-ai-with-med-gemini/" class="button-primary">Learn More³</a>
+                </p>
+            </div>
+    
+            <!-- Trust Section -->
+            <div class="info-section" style="background: #f8f9fa; border-radius: 12px; padding: 2rem; margin-bottom: 2rem;">
+                <h3 style="font-size: 1.5rem; color: #1a1a1a; margin-bottom: 1rem;">
+                    🤝 Why You Can Trust Healthmate
+                </h3>
+                <p style="color: #4a4a4a; font-size: 1.125rem; line-height: 1.7;">
+                    Trust is foundational to healthcare. Healthmate adheres to a strict data privacy policy:
+                    <br><br>
+                    • No login required forever<br>
+                    • Zero data logging to ensure your privacy¹³<br>
+                    • Chat records are never saved¹³<br>
+                    • We do not request personal identification documents
+                </p>
+            </div>
+    
+            <!-- Follow-up Section with Image -->
+            <div class="info-section" style="background: #f8f9fa; border-radius: 12px; padding: 2rem; margin-bottom: 2rem; display: flex; gap: 2rem; align-items: center;">
+                <div style="flex: 1;">
+                    <h3 style="font-size: 1.5rem; color: #1a1a1a; margin-bottom: 1rem;">
+                        📋 Seamless Follow-ups
+                    </h3>
+                    <p style="color: #4a4a4a; font-size: 1.125rem; line-height: 1.7;">
+                        Our integrated follow-up mechanism ensures continuity of care without the need for a login:
+                        <br><br>
+                        • "Follow-up Prompt" functionality<br>
+                        • Simply paste your unique prompt to resume an ongoing conversation seamlessly
+                    </p>
+                </div>
+                <div style="flex: 1;">
+                    <img src="https://cdn.glitch.global/907ca3da-8419-4467-9fed-b094fae7c503/Screenshot%202024-11-17%20at%207.29.10%E2%80%AFPM.png?v=1731832187042" alt="Follow-up System Interface" style="width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+                </div>
+            </div>
+    
+            <!-- Pricing Section -->
+            <div class="info-section" style="background: #f8f9fa; border-radius: 12px; padding: 2rem; margin-bottom: 2rem;">
+                <h3 style="font-size: 1.5rem; color: #1a1a1a; margin-bottom: 1rem;">
+                    💳 Transparent Pricing
+                </h3>
+                <p style="color: #4a4a4a; font-size: 1.125rem; line-height: 1.7;">
+                    We are committed to maintaining accessibility while upholding privacy by using unique identifiers to securely manage account balances. Our proposed pricing plans are as follows:
+                    <br><br>
+                    • Current Phase: Free for all users<br>
+                    • Future Pricing (subject to adjustment):<br>
+                    &nbsp;&nbsp;&nbsp;- General Users: $0.002 per prompt<br>
+                    &nbsp;&nbsp;&nbsp;- Humanitarian Organizations: $0.0015 per prompt (contact us for details)<br>
+                    &nbsp;&nbsp;&nbsp;- Users in Developing Regions: $0.001 per prompt (based on device location)<br>
+                </p>
+            </div>
+    
+            <!-- Future Plans Section -->
+            <div class="info-section" style="background: #f8f9fa; border-radius: 12px; padding: 2rem; margin-bottom: 2rem;">
+                <h3 style="font-size: 1.5rem; color: #1a1a1a; margin-bottom: 1rem;">
+                    Looking Ahead: Healthmate’s Vision
+                </h3>
+                <p style="color: #4a4a4a; font-size: 1.125rem; line-height: 1.7;">
+                    Our mission is to develop a fully HIPAA-compliant AI doctor⁴ while prioritizing your privacy:
+                    <br><br>
+                    • Unique identifiers to securely manage account balances<br>
+                    • Enhanced medical response accuracy<br>
+                    • Image submission capabilities for more precise consultations<br>
+                    • Certain Responses (that you have a choice to say no) reviewed and verified by certified medical professionals<br>
+                </p>
+            </div>
+            
+        </div>
+    </section>
+    <section class="impact-section" style="padding: 6rem 0; background-color: white;">
+    <div style="max-width: 1200px; margin: 0 auto; padding: 0 2rem;">
+        <h2 style="font-size: 2.5rem; color: #1a1a1a; margin-bottom: 3rem; text-align: center;">Why Healthmate: Bridging Healthcare Gaps</h2>
+        
+        <!-- Global Healthcare Crisis -->
+        <div class="info-section" style="background: #f8f9fa; border-radius: 12px; padding: 2rem; margin-bottom: 2rem;">
+            <h3 style="font-size: 1.5rem; color: #1a1a1a; margin-bottom: 1rem;">
+                🌍 Healthcare Access Crisis
+            </h3>
+            <p style="color: #4a4a4a; font-size: 1.125rem; line-height: 1.7;">
+                Current global healthcare challenges (WHO & UNICEF, 2023):
+                <br><br>
+                • 3.5 billion people lack access to essential health services<br>
+                • Only 1 doctor per 1,000 people in most African countries<br>
+                • 100 million people pushed into extreme poverty due to healthcare costs<br>
+                • 80% of people in low-income countries have no social health protection<br>
+                • In Australia, over 11% live in rural areas with limited healthcare access (ABS, 2022)<br>
+                • 35% of low-income Australian families avoid care due to costs (AIHW, 2023)
+            </p>
+        </div>
+
+        <!-- Technology Solution -->
+        <div class="info-section" style="background: #f8f9fa; border-radius: 12px; padding: 2rem; margin-bottom: 2rem;">
+            <h3 style="font-size: 1.5rem; color: #1a1a1a; margin-bottom: 1rem;">
+                📱 Mobile Technology as a Solution
+            </h3>
+            <p style="color: #4a4a4a; font-size: 1.125rem; line-height: 1.7;">
+                Leveraging existing infrastructure (World Bank, 2023):
+                <br><br>
+                • 85% of global population has mobile phone access<br>
+                • Mobile internet reaches 55% of developing regions<br>
+                • 67% of healthcare workers in developing countries use smartphones<br>
+                • Digital health solutions could save 1.6 million lives annually<br>
+                • 24/7 instant medical guidance regardless of location<br>
+                • No need to travel long distances for initial consultations
+            </p>
+        </div>
+
+        <!-- Healthmate's Approach -->
+        <div class="info-section" style="background: #f8f9fa; border-radius: 12px; padding: 2rem; margin-bottom: 2rem;">
+            <h3 style="font-size: 1.5rem; color: #1a1a1a; margin-bottom: 1rem;">
+                💡 How Healthmate Helps
+            </h3>
+            <p style="color: #4a4a4a; font-size: 1.125rem; line-height: 1.7;">
+                Accessible healthcare solutions:
+                <br><br>
+                • Currently free for all users<br>
+                • Future pricing at $0.001 per prompt for developing countries<br>
+                • Special rates for humanitarian organizations ($0.0015 per prompt)<br>
+                • Works on basic smartphones with minimal internet connection<br>
+                • No need for expensive medical equipment<br>
+                • Available in multiple languages for broader accessibility<br>
+                • Seamless follow-up system for ongoing care
+            </p>
+        </div>
+
+        <!-- Privacy & Security -->
+        <div class="info-section" style="background: #f8f9fa; border-radius: 12px; padding: 2rem; margin-bottom: 2rem;">
+            <h3 style="font-size: 1.5rem; color: #1a1a1a; margin-bottom: 1rem;">
+                🔒 Privacy & Security
+            </h3>
+            <p style="color: #4a4a4a; font-size: 1.125rem; line-height: 1.7;">
+                Addressing privacy concerns of users worldwide:
+                <br><br>
+                • No login requirements or personal identification needed¹³<br>
+                • Zero data logging policy¹³<br>
+                • No chat history storage¹³<br>
+                • HIPAA-compliant development roadmap¹³<br>
+                • Secure platform for telemedicine concerns¹³
+            </p>
+        </div>
+
+  
+
+        <!-- Success Metrics -->
+        <div class="info-section" style="background: #f8f9fa; border-radius: 12px; padding: 2rem;">
+            <h3 style="font-size: 1.5rem; color: #1a1a1a; margin-bottom: 1rem;">
+                📊 Target Impact Goals
+            </h3>
+            <p style="color: #4a4a4a; font-size: 1.125rem; line-height: 1.7;">
+                Aligned with UN Sustainable Development Goals:
+                <br><br>
+                • Reach 100 million users in underserved regions by 2025<br>
+                • Reduce unnecessary hospital visits by 30%<br>
+                • Support 500,000 community health workers<br>
+                • Achieve 95% accuracy in preliminary diagnoses<br>
+                • Partner with 1,000+ humanitarian organizations<br>
+                • Improve healthcare access for rural Australian communities
+            </p>
+        </div>
+    </div>
+</section>
+    
+    <section class="sponsors-section" style="min-height: auto; padding: 4rem 0;">
+        <section class="sponsors-section">
+            <div class="sponsors-container">
+                <h2 class="sponsors-title">Our Supporters and Endorsers</h2>
+                
+                <!-- Left Arrow -->
+                <button class="scroll-arrow-sponsors left" onclick="scrollSponsors('left')">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M15 18l-6-6 6-6"/>
+                    </svg>
+                </button>
+                
+                <!-- Right Arrow -->
+                <button class="scroll-arrow-sponsors right" onclick="scrollSponsors('right')">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M9 18l6-6-6-6"/>
+                    </svg>
+                </button>
+                
+                <div class="sponsors-scroll">
+                    <div class="sponsor-card">
+                        <div class="sponsor-image">
+                            <img src="https://www.idat.org/wp-content/uploads/2021/07/1200px-Knox_Grammar_School_Logo.png" alt="Sponsor 1" />
+                        </div>
+                        <div class="sponsor-name">Knox Grammar School</div>
+                        <div class="sponsor-role">Supporter</div>
+                    </div>
+                    <div class="sponsor-card">
+                        <div class="sponsor-image">
+                            <img src="https://pbs.twimg.com/profile_images/1632508193732710401/HUrbmDXk_200x200.jpg" alt="Sponsor 2" />
+                        </div>
+                        <div class="sponsor-name">Macquarie University</div>
+                        <div class="sponsor-role">Supporter</div>
+                    </div>
+                  <div class="sponsor-card">
+                        <div class="sponsor-image">
+                            <img src="https://cdn.glitch.global/907ca3da-8419-4467-9fed-b094fae7c503/Shellcraft%20Studios.png?v=1731977288209" alt="Sponsor 2" />
+                        </div>
+                        <div class="sponsor-name">Shellcraft Studios</div>
+                        <div class="sponsor-role">Designer, Manager</div>
+                    </div>
+                  <div class="sponsor-card">
+                        <div class="sponsor-image">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTWYW-UPXCffFTYsKF0TavM8n-pK5CoMJ3Efg&s" alt="Sponsor 2" />
+                        </div>
+                        <div class="sponsor-name">Google Deepmind</div>
+                        <div class="sponsor-role">Large Language Model Provider</div>
+                    </div>
+                    <div class="sponsor-card">
+                        <div class="sponsor-image">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR3w43Nd-K6uLb7JcmI4Y4lafMFWZQmhzZUnA&s" alt="Sponsor 3" />
+                        </div>
+                        <div class="sponsor-name">Glitch, Inc</div>
+                        <div class="sponsor-role">Site Hoster</div>
+                    </div>
+                    <div class="sponsor-card">
+                        <div class="sponsor-image">
+                            <img src="https://inspiredadventures.com.au/wp-content/uploads/2024/07/logo-600-5.jpg" alt="Sponsor 4" />
+                        </div>
+                        <div class="sponsor-name">Save The Children</div>
+                        <div class="sponsor-role">Endorsement Charity</div>
+                    </div>
+                    <div class="sponsor-card">
+                        <div class="sponsor-image">
+                            <img src="https://associations.net.au/WorldVision.png" alt="Sponsor 4" />
+                        </div>
+                        <div class="sponsor-name">World Vision Australia</div>
+                        <div class="sponsor-role">Endorsement Charity</div>
+                    </div>
+                    <div class="sponsor-card">
+                        <div class="sponsor-image">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcThKThFV2laIKVxBZZWKzA6Ypb9IqVqhbmhqw&s" alt="Sponsor 4" />
+                        </div>
+                        <div class="sponsor-name">UNICEF</div>
+                        <div class="sponsor-role">Endorsement Charity</div>
+                    </div>
+                    <div class="sponsor-card">
+                        <div class="sponsor-image">
+                            <img src="https://www.msf.org/themes/custom/msf_theme/ogimage.jpg" alt="Sponsor 4" />
+                        </div>
+                        <div class="sponsor-name">Doctors without borders</div>
+                        <div class="sponsor-role">Endorsement Charity</div>
+                    </div>
+                    <div class="sponsor-card">
+                        <div class="sponsor-image">
+                            <img src="https://cdn.grassrootz.com/organization/logo/NKc8nbcBILa7NJc2UDmjjlNh.png?w=250&h=250" alt="Sponsor 4" />
+                        </div>
+                        <div class="sponsor-name">Fred Hollows Foundation</div>
+                        <div class="sponsor-role">Endorsement Charity</div>
+                    </div>
+                  <div class="sponsor-card">
+                        <div class="sponsor-image">
+                            <img src="https://media.oxfam.org.au/wp-content/uploads/2023/12/Oxfam-Australia-Horizontal-Logo.png" alt="Sponsor 4" />
+                        </div>
+                        <div class="sponsor-name">Oxfam</div>
+                        <div class="sponsor-role">Endorsement Charity</div>
+                    </div>
+                  <div class="sponsor-card">
+                        <div class="sponsor-image">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSTO1FpUkaDiIDlpGUW2egjwFSA0z0YWPYC2w&s" alt="Sponsor 4" />
+                        </div>
+                        <div class="sponsor-name">UNHCR</div>
+                        <div class="sponsor-role">Endorsement Charity</div>
+                    </div>
+                  <div class="sponsor-card">
+                        <div class="sponsor-image">
+                            <img src="https://ausdocafrica.org/wp-content/uploads/2018/10/Admin-logo.png" alt="Sponsor 4" />
+                        </div>
+                        <div class="sponsor-name">Australian Doctors in Africa</div>
+                        <div class="sponsor-role">Endorsement Charity</div>
+                    </div>
+                  <div class="sponsor-card">
+                        <div class="sponsor-image">
+                            <img src="https://careforafrica.org.au/wp-content/uploads/2023/09/CFA-logo-redo-2024-300x120.png" alt="Sponsor 4" />
+                        </div>
+                        <div class="sponsor-name">Care For Africa</div>
+                        <div class="sponsor-role">Endorsement Charity</div>
+                    </div>
+                  <div class="sponsor-card">
+    <div class="sponsor-image">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQDjS_pUOsqq1ZpXieJFIb8lqW0rMUxAm5T3w&s" alt="Australian Health Humanitarian Aid" />
+    </div>
+    <div class="sponsor-name">Australian Health Humanitarian Aid</div>
+    <div class="sponsor-role">Endorsement Charity</div>
+</div>
+
+<div class="sponsor-card">
+    <div class="sponsor-image">
+        <img src="https://volunteeringgc.org.au/wp-content/uploads/2022/01/Australian-Redcross-logo.png" alt="Australian Red Cross" />
+    </div>
+    <div class="sponsor-name">Australian Red Cross</div>
+    <div class="sponsor-role">Endorsement Charity</div>
+</div>
+
+                  
+
+                </div>
+              <p>For sponsorships, endorsements, or to request the removal of your name from the section above, please <a href="mailto:2uh114cu@duck.com">Contact us</a></p>
+            </div>
+        </section>
+    </section>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>About HealthMate™</h4>
+                    <p>Australia's First² AI-Powered Doctor⁴, focusing on making healthcare accessible while maintaining privacy and security¹.</p>
+                    <p>A Knox Grammar School Global Challenge Project.</p>
+                    <p>Legal actions against us will be dismissed.</p>
+                    <p>
+                        ¹Healthmate is not HIPAA complient yet. We are aiming towards that goal. </p>
+                    <p>²Might not be the first</p>   
+                    <p>³Currently, it is powered by Gemini-1.5-Flash free. Your chats might be used for AI model training.</p>
+                    <p>⁴HealthMate is not regonised as a doctor yet. Please use HealthMate as a medical advisor.</p>   
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="https://healthmate.glitch.me/">Home</a></li>
+                        <li><a href="https://sites.google.com/knox.nsw.edu.au/khc/home">About Us</a></li>
+                        <li><a href="https://healthmate.glitch.me/ai.html">Get Started</a></li>
+                        <li><a href="https://healthmate.glitch.me/verify.html">Verify HealthMate Session</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact</h4>
+                    <ul class="footer-links">
+                        <li><a href="mailto:2uh114cu@duck.com">Support</a></li>
+                        <li><a href="mailto:2uh114cu@duck.com">Feedback</a></li>
+                        <li><a href="mailto:2uh114cu@duck.com">Partner With Us</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Legal</h4>
+                    <ul class="footer-links">
+                        <li><a href="https://docs.google.com/document/d/1_-WwaKl38F6q2x18-FNoNThgovObDHUiIhgkFLu0b7U/edit?usp=sharing">Terms of Service</a></li>
+                        <li><a href="https://docs.google.com/document/d/1_-WwaKl38F6q2x18-FNoNThgovObDHUiIhgkFLu0b7U/edit?usp=sharing">Privacy Policy</a></li>
+                        <li><a href="https://docs.google.com/document/d/1_-WwaKl38F6q2x18-FNoNThgovObDHUiIhgkFLu0b7U/edit?usp=sharing">Cookie Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <h4>© 2024 Shellcraft™ Studios. All Rights Reserved. Knox Grammar School Global Challenge.<br>
+                Created by <a href="https://shorturl.at/v8TYg">Ka Hei Chan</a>. Managed by Shellcraft Studios.</h4>
+               
+            </div>
+        </div>
+    </footer>
+    <script>
+        function scrollSponsors(direction) {
+            const container = document.querySelector('.sponsors-scroll');
+            const scrollAmount = 300;
+            
+            if (direction === 'left') {
+                container.scrollLeft -= scrollAmount;
+            } else {
+                container.scrollLeft += scrollAmount;
+            }
+        }
+        
+        // Optional: Hide arrows when at the start or end of scrolling
+        const container = document.querySelector('.sponsors-scroll');
+        const leftArrow = document.querySelector('.scroll-arrow-sponsors.left');
+        const rightArrow = document.querySelector('.scroll-arrow-sponsors.right');
+        
+        container.addEventListener('scroll', () => {
+            const isAtStart = container.scrollLeft === 0;
+            const isAtEnd = container.scrollLeft + container.clientWidth >= container.scrollWidth;
+            
+            leftArrow.style.opacity = isAtStart ? '0.5' : '1';
+            rightArrow.style.opacity = isAtEnd ? '0.5' : '1';
+        });
+        </script>
+</body>
+</html>
