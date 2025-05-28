@@ -1,3 +1,6 @@
+Glitch.com, the web provider of Healthmate, will be shutting down in July 2025. Moreover, with the recent release of MedGemma (https://deepmind.google/models/gemma/medgemma/), we’re entering a new era of open source, offline medical AI that can handle images and much more. As a result, our project, HealthMate (formerly Ayako), will no longer be updated and will quietly fade away. Thank you for being part of our journey, especially during the Knox Grammar - Macquarie University Global Challenge Week. With smarter, offline medical AI now available, everyone will soon have access to a doctor, even without internet.
+
+
 # HealthMate
 
 **Australia's First² AI Medical Advisor⁴ | Bridging Healthcare Gaps Globally**
