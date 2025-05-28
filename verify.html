@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document Verification - Healthmate</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #f5f7fa;
+        }
+
+        .container {
+            max-width: 600px;
+            width: 100%;
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-top: 2rem;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .logo {
+            width: 200px;
+            height: 60px;
+            object-fit: contain;
+            margin-bottom: 1rem;
+        }
+
+        .brand-name {
+            color: #2563eb;
+            text-decoration: none;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .verification-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        input {
+            padding: 0.75rem;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            font-size: 1rem;
+        }
+
+        button {
+            background-color: #2563eb;
+            color: white;
+            border: none;
+            padding: 0.75rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: background-color 0.2s;
+        }
+
+        button:hover {
+            background-color: #1d4ed8;
+        }
+
+        .result {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            border-radius: 6px;
+            text-align: center;
+            display: none;
+        }
+
+        .verified {
+            background-color: #dcfce7;
+            color: #166534;
+        }
+
+        .not-verified {
+            background-color: #fee2e2;
+            color: #991b1b;
+        }
+
+        .disclaimer {
+            margin-top: auto;
+            padding: 2rem;
+            color: #ededed;
+            font-size: 0.75rem;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <img class="logo-icon" src="https://cdn.glitch.global/907ca3da-8419-4467-9fed-b094fae7c503/healthmate%2024*24.png?v=1731656038845" alt="Healthmate Logo">
+            <a href="https://healthmate.glitch.me/" class="brand-name">Healthmate Verification</a>
+        </div>
+
+        <div class="verification-form">
+            <div class="input-group">
+                <label for="verification-number">Enter Document Verification Number</label>
+                <input type="text" id="verification-number" placeholder="Enter verification number" required>
+            </div>
+            <button onclick="verifyDocument()">Verify Document</button>
+        </div>
+
+        <div id="result" class="result"></div>
+    </div>
+
+    <div class="disclaimer">
+        Healthmate is made by Shellcraft Medical. It is not a verified branch in the Board of Medical Australia. Legal action is not applicable. This verification can be considered a real chat with HealthMate, but does not mean that the conversation is accurate. We do not accept any liabilities placed upon us.
+    </div>
+
+    <script>
+        function verifyDocument() {
+            const verificationNumber = document.getElementById('verification-number').value;
+            const resultDiv = document.getElementById('result');
+            
+            const isVerified = verificationNumber.includes('8d93') && verificationNumber.includes('6f5w');
+            
+            resultDiv.style.display = 'block';
+            if (isVerified) {
+                resultDiv.className = 'result verified';
+                resultDiv.innerHTML = `
+                    <h3>✓ Document Verified</h3>
+                    <p>This certificate has been verified as authentic in our system.</p>
+                `;
+            } else {
+                resultDiv.className = 'result not-verified';
+                resultDiv.innerHTML = `
+                    <h3>✗ Document Not Verified</h3>
+                    <p>Your certificate number is invalid or not found. Please check the number and try again.</p>
+                `;
+            }
+        }
+    </script>
+</body>
+</html>
